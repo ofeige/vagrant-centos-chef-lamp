@@ -1,0 +1,21 @@
+[submodule "chef/cookbooks/mysql"]
+	path = chef/cookbooks/mysql
+	url = https://github.com/opscode-cookbooks/mysql.git
+[submodule "chef/cookbooks/yum-mysql-community"]
+	path = chef/cookbooks/yum-mysql-community
+	url = https://github.com/opscode-cookbooks/yum-mysql-community.git
+[submodule "environment/cookbooks/yum"]
+	path = environment/cookbooks/yum
+	url = https://github.com/opscode-cookbooks/yum.git
+[submodule "chef/cookbooks/php"]
+	path = chef/cookbooks/php
+	url = https://github.com/opscode-cookbooks/php.git
+[submodule "chef/cookbooks/iptables"]
+	path = chef/cookbooks/iptables
+	url = https://github.com/opscode-cookbooks/iptables.git
+[submodule "chef/cookbooks/logrotate"]
+	path = chef/cookbooks/logrotate
+	url = https://github.com/opscode-cookbooks/logrotate.git
+[submodule "chef/cookbooks/pacman"]
+	path = chef/cookbooks/pacman
+	url = https://github.com/opscode-cookbooks/pacman.git
