@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.omnibus.chef_version = :latest
 
-  config.vm.synced_folder ".", "/vagrant", :owner => "apache", :group => "apache"
+  #config.vm.synced_folder ".", "/vagrant", :owner => "apache", :group => "apache"
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["chef/cookbooks/"]
