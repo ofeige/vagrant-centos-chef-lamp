@@ -4,8 +4,8 @@
 [submodule "chef/cookbooks/yum-mysql-community"]
 	path = chef/cookbooks/yum-mysql-community
 	url = https://github.com/opscode-cookbooks/yum-mysql-community.git
-[submodule "environment/cookbooks/yum"]
-	path = environment/cookbooks/yum
+[submodule "chef/cookbooks/yum"]
+	path = chef/cookbooks/yum
 	url = https://github.com/opscode-cookbooks/yum.git
 [submodule "chef/cookbooks/php"]
 	path = chef/cookbooks/php
