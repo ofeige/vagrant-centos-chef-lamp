@@ -96,7 +96,7 @@ end
 file "/etc/php.d/99-display_errors.ini" do
   owner "root"
   group "root"
-  mode "0777"
+  mode "0644"
   action :create
   content "display_errors = On"
   notifies :restart, "service[apache2]", :delayed
@@ -105,7 +105,7 @@ end
 file "/etc/php.d/99-default_timezone.ini" do
   owner "root"
   group "root"
-  mode "0777"
+  mode "0644"
   action :create
   content "date.timezone = 'Europe/Berlin'"
   notifies :restart, "service[apache2]", :delayed
