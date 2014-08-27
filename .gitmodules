@@ -22,9 +22,6 @@
 [submodule "chef/cookbooks/nginx"]
 	path = chef/cookbooks/nginx
 	url = https://github.com/miketheman/nginx.git
-[submodule "chef/chef/cookbooks/php-fpm"]
-	path = chef/chef/cookbooks/php-fpm
-	url = https://github.com/yevgenko/cookbook-php-fpm.git
 [submodule "chef/cookbooks/php-fpm"]
 	path = chef/cookbooks/php-fpm
 	url = https://github.com/yevgenko/cookbook-php-fpm.git
