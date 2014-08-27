@@ -3,11 +3,13 @@
 #include_recipe "mysql::client"
 #include_recipe "mysql::server"
 #include_recipe "database::mysql"
-include_recipe "apache2"
-include_recipe "apache2::mod_php5"
-include_recipe "apache2::mod_rewrite"
-include_recipe "apache2::mod_deflate"
-include_recipe "apache2::mod_headers"
+#include_recipe "apache2"
+#include_recipe "apache2::mod_php5"
+#include_recipe "apache2::mod_rewrite"
+#include_recipe "apache2::mod_deflate"
+#include_recipe "apache2::mod_headers"
+include_recipe "nginx"
+
 include_recipe "iptables::disabled"
 
 
@@ -35,7 +37,11 @@ yum_repository 'remi-php55' do
   action :create
 end
 
-
+%w( vim-enhanced mc less screen lynx curl telnet w3m ).each do |prog|
+	package prog do
+		action :install
+	end
+end
 
 %w( php php-fpm php-mcrypt php-gd php-xml php-ldap php-mysql php-mysqlnd php-mbstring).each do |prog|
   package prog do
@@ -43,7 +49,6 @@ end
     action :install
   end
 end
-
 
 #mysql_service 'default' do
 #      allow_remote_root true
@@ -87,11 +92,11 @@ end
 #  action        :grant
 #end
 
-web_app "opf_testapp" do
-  server_name "localhost"
-  server_aliases ["localhost"]
-  docroot "/vagrant/web"
-end
+#web_app "opf_testapp" do
+#  server_name "localhost"
+#  server_aliases ["localhost"]
+#  docroot "/vagrant/web"
+#end
 
 file "/etc/php.d/99-display_errors.ini" do
   owner "root"
@@ -99,7 +104,7 @@ file "/etc/php.d/99-display_errors.ini" do
   mode "0644"
   action :create
   content "display_errors = On"
-  notifies :restart, "service[apache2]", :delayed
+#  notifies :restart, "service[apache2]", :delayed
 end
 
 file "/etc/php.d/99-default_timezone.ini" do
@@ -108,10 +113,59 @@ file "/etc/php.d/99-default_timezone.ini" do
   mode "0644"
   action :create
   content "date.timezone = 'Europe/Berlin'"
-  notifies :restart, "service[apache2]", :delayed
+#  notifies :restart, "service[apache2]", :delayed
 end
 
-
-execute "auto start apache" do
-    command "chkconfig httpd on"
+file "/etc/profile.d/vialias.sh" do
+	owner "root"
+	group "root"
+	mode "0644"
+	action :create
+	content "alias vi=vim"
 end
+
+file "root/.vimrc" do
+	owner "root"
+	group "root"
+	mode "0644"
+	content "syntax on
+set noai
+set ts=4
+colorscheme desert"
+	action :create
+end
+
+directory "/var/www/nginx-default/" do
+	owner "root"
+	group "root"
+	mode "0755"
+	action :create
+end
+
+file "/var/www/nginx-default/index.php" do
+	owner "root"
+	group "root"
+	mode "0644"
+	content "<?php phpinfo(); ?>"
+	action :create
+end
+
+execute "auto start php-fpm" do
+    command "chkconfig php-fpm on"
+end
+
+service 'php-fpm' do
+  supports :status => true, :restart => true, :reload => true
+  action   :start
+end
+
+template 'default-site' do
+  path "/etc/nginx/sites-available/default"
+  action :create
+  source 'default-site.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  notifies :reload, 'service[nginx]', :delayed
+end
+

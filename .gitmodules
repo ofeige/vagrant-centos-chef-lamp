@@ -19,3 +19,33 @@
 [submodule "chef/cookbooks/pacman"]
 	path = chef/cookbooks/pacman
 	url = https://github.com/opscode-cookbooks/pacman.git
+[submodule "chef/cookbooks/nginx"]
+	path = chef/cookbooks/nginx
+	url = https://github.com/miketheman/nginx.git
+[submodule "chef/chef/cookbooks/php-fpm"]
+	path = chef/chef/cookbooks/php-fpm
+	url = https://github.com/yevgenko/cookbook-php-fpm.git
+[submodule "chef/cookbooks/php-fpm"]
+	path = chef/cookbooks/php-fpm
+	url = https://github.com/yevgenko/cookbook-php-fpm.git
+[submodule "chef/cookbooks/apt"]
+	path = chef/cookbooks/apt
+	url = https://github.com/opscode-cookbooks/apt.git
+[submodule "chef/cookbooks/bluepill"]
+	path = chef/cookbooks/bluepill
+	url = https://github.com/opscode-cookbooks/bluepill.git
+[submodule "chef/cookbooks/rsyslog"]
+	path = chef/cookbooks/rsyslog
+	url = https://github.com/opscode-cookbooks/rsyslog.git
+[submodule "chef/cookbooks/build-essential"]
+	path = chef/cookbooks/build-essential
+	url = https://github.com/opscode-cookbooks/build-essential.git
+[submodule "chef/cookbooks/ohai"]
+	path = chef/cookbooks/ohai
+	url = https://github.com/opscode-cookbooks/ohai.git
+[submodule "chef/cookbooks/runit"]
+	path = chef/cookbooks/runit
+	url = https://github.com/hw-cookbooks/runit.git
+[submodule "chef/cookbooks/yum-epel"]
+	path = chef/cookbooks/yum-epel
+	url = https://github.com/opscode-cookbooks/yum-epel.git

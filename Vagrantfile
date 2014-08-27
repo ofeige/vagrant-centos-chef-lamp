@@ -30,7 +30,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             allow_remote_root: true,
             remove_anonymous_users: true,
             remove_test_database: true
-        }
+        },
+			:nginx => {
+					sendfile: "off"
+				}
     }
   end
 end
