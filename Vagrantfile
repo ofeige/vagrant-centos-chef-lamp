@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "chef/centos-6.5"
+  config.vm.box = "chef/centos-7.0"
 
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
@@ -16,11 +16,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.omnibus.chef_version = :latest
 
-  #config.vm.synced_folder ".", "/vagrant", :owner => "apache", :group => "apache"
+  config.vm.synced_folder ".", "/vagrant", :owner => "vagrant", :group => "vagrant"
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["chef/cookbooks/"]
     chef.add_recipe "mysql::server"
+		chef.add_recipe "php-fpm"
     chef.add_recipe "lamp"
     chef.json = {
       :mysql => {
@@ -32,7 +33,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             remove_test_database: true
         },
 			:nginx => {
-					sendfile: "off"
+					sendfile: "off",
+					default_root: "/vagrant",
+					listen: "127.0.0.1:9000",
+					user: "vagrant",
+					group: "vagrant",
+				},
+
+			:'php-fpm' => {
+					package_name: "php-fpm",
+					user: "vagrant",
+					group: "vagrant",
+
 				}
     }
   end

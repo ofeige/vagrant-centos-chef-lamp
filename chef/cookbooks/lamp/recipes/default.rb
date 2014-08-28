@@ -16,8 +16,8 @@ include_recipe "iptables::disabled"
 # add the EPEL repo
 yum_repository 'epel' do
   description 'Extra Packages for Enterprise Linux'
-  mirrorlist 'http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=$basearch'
-  gpgkey 'http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6'
+  mirrorlist 'https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch'
+  gpgkey 'http://ftp.nluug.nl/pub/os/Linux/distr/fedora-epel/RPM-GPG-KEY-EPEL-7'
   action :create
 end
 
@@ -37,13 +37,13 @@ yum_repository 'remi-php55' do
   action :create
 end
 
-%w( vim-enhanced mc less screen lynx curl telnet w3m ).each do |prog|
+%w( vim-enhanced mc less screen lynx curl telnet psmisc nano ).each do |prog|
 	package prog do
 		action :install
 	end
 end
 
-%w( php php-fpm php-mcrypt php-gd php-xml php-ldap php-mysql php-mysqlnd php-mbstring).each do |prog|
+%w( php php-mcrypt php-gd php-xml php-ldap php-mysql php-mysqlnd php-mbstring php-pdo ).each do |prog|
   package prog do
     options "--enablerepo=remi,remi-php55"
     action :install
@@ -135,29 +135,21 @@ colorscheme desert"
 	action :create
 end
 
-directory "/var/www/nginx-default/" do
-	owner "root"
-	group "root"
-	mode "0755"
-	action :create
-end
+#directory "/var/www/nginx-default/" do
+#	owner "root"
+#	group "root"
+#	mode "0755"
+#	action :create
+#end
+#
+#execute "auto start php-fpm" do
+#    command "chkconfig php-fpm on"
+#end
 
-file "/var/www/nginx-default/index.php" do
-	owner "root"
-	group "root"
-	mode "0644"
-	content "<?php phpinfo(); ?>"
-	action :create
-end
-
-execute "auto start php-fpm" do
-    command "chkconfig php-fpm on"
-end
-
-service 'php-fpm' do
-  supports :status => true, :restart => true, :reload => true
-  action   :start
-end
+#service 'php-fpm' do
+#  supports :status => true, :restart => true, :reload => true
+#  action   :start
+#end
 
 template 'default-site' do
   path "/etc/nginx/sites-available/default"
@@ -168,4 +160,25 @@ template 'default-site' do
   mode '0644'
   notifies :reload, 'service[nginx]', :delayed
 end
+
+template 'dot.my.cnf' do
+	path "/root/.my.cnf"
+	action :create
+  owner 'root'
+  group 'root'
+  mode '0644'
+end
+
+template 'dot.my.cnf' do
+	path "/home/vagrant/.my.cnf"
+	action :create
+  owner 'root'
+  group 'root'
+  mode '0644'
+end
+
+php_fpm_pool "www" do
+	listen node['nginx']['listen']
+end
+
 
