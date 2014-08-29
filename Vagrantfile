@@ -21,8 +21,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["chef/cookbooks/"]
     chef.add_recipe "mysql::server"
-		chef.add_recipe "php-fpm"
     chef.add_recipe "lamp"
+		chef.add_recipe "php-fpm"
     chef.json = {
       :mysql => {
             server_root_password: "test",
@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 				},
 
 			:'php-fpm' => {
-					package_name: "php-fpm",
+					package_name: "php56-php-fpm",
 					user: "vagrant",
 					group: "vagrant",
 
