@@ -1,7 +1,7 @@
 vagrant-centos-chef-lamp
 ========================
 
-A lamp stack with chef, cents 6.5, vagrant, apache-2.2, php-5.5, mysql 5.6
+A lamp stack with chef, cents 7.0, vagrant, nginx, php-5.5, mysql 5.6
 
 Install
 =======
