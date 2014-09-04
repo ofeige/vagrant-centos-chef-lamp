@@ -29,10 +29,10 @@ yum_repository 'remi' do
   action :create
 end
 
-# add the remi-php55 repo
-yum_repository 'remi-php55' do
-  description 'Les RPM de remi pour Enterprise Linux - php55'
-  mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/php55/mirror'
+# add the remi-php56 repo
+yum_repository 'remi-php56' do
+  description 'Les RPM de remi pour Enterprise Linux - php56'
+  mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/php56/mirror'
   gpgkey 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
   action :create
 end
@@ -43,10 +43,10 @@ end
 	end
 end
 
-#%w( php php-mcrypt php-gd php-xml php-ldap php-mysql php-mysqlnd php-mbstring php-pdo ).each do |prog|
-%w( php56 php56-php-mcrypt php56-php-gd php56-php-xml php56-php-ldap php56-php-mysql php56-php-mysqlnd php56-php-mbstring php56-php-pdo php-pecl-zendopcache ).each do |prog|
+%w( php php-mcrypt php-gd php-xml php-ldap php-mysql php-mysqlnd php-mbstring php-pdo php-opcache).each do |prog|
+#%w( php56 php56-php-mcrypt php56-php-gd php56-php-xml php56-php-ldap php56-php-mysql php56-php-mysqlnd php56-php-mbstring php56-php-pdo php56-php-opcache ).each do |prog|
   package prog do
-    options "--enablerepo=remi,remi-php55"
+    options "--enablerepo=remi,remi-php56"
     action :install
   end
 end
@@ -181,5 +181,4 @@ end
 php_fpm_pool "www" do
 	listen node['nginx']['listen']
 end
-
 

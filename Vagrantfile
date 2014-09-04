@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 				},
 
 			:'php-fpm' => {
-					package_name: "php56-php-fpm",
+					package_name: "php-fpm",
 					user: "vagrant",
 					group: "vagrant",
 
