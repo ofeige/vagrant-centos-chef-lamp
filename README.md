@@ -13,6 +13,7 @@ Install
 ```
 vagrant plugin install vagrant-omnibus
 vagrant plugin install vagrant-cachier
+vagrant plugin install nugrant
 ```
 
 omnibus is needed to install chef on a clean new vm. Cachier is needed to prevent downloading rpm´s again. This is usefull during setting up a vm, when you have online internet via cellphone like inside a train :-)

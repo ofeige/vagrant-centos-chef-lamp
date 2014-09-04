@@ -11,12 +11,34 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.scope = :box
   end
 
+  if Vagrant.has_plugin?("nugrant")
+    config.user.defaults = {
+        "virtualbox" => {
+            "memory" => "2048",
+            "cpus" => "2",
+        }
+    }
+    # modify virtualbox to set cpu/mem and some useful performance options
+    config.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--memory", config.user.virtualbox.memory]
+        vb.customize ["modifyvm", :id, "--cpus", config.user.virtualbox.cpus]
+        vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
+        vb.customize ["modifyvm", :id, "--nestedpaging", "on"]
+        vb.customize ["modifyvm", :id, "--largepages", "on"]
+        vb.customize ["modifyvm", :id, "--vtxvpid", "on"]
+    end
+  end
+
   config.vm.network :forwarded_port, guest: 80, host: 8081
   config.vm.network :forwarded_port, guest: 3306, host: 3306
 
   config.omnibus.chef_version = :latest
 
   config.vm.synced_folder ".", "/vagrant", :owner => "vagrant", :group => "vagrant"
+
+	# If true, then any SSH connections made will enable agent forwarding.
+	# Default value: false
+	config.ssh.forward_agent = true
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["chef/cookbooks/"]
