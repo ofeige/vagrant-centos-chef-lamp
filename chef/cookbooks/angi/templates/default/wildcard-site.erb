@@ -1,0 +1,24 @@
+server {
+  listen   80;
+  server_name  *.<%= @vhost %>;
+
+  access_log  <%= node['nginx']['log_dir'] %>/<%= @vhost %>.access.log;
+  error_log  <%= node['nginx']['log_dir'] %>/<%= @vhost %>.error.log;
+
+  location / {
+    root   <%= @root %>;
+    index  index.html index.htm index.php;
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    location ~ \.php$ {
+        fastcgi_pass   <%= node['nginx']['listen'] %>;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+  }
+ 
+
+}
+

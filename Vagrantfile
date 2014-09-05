@@ -47,6 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "mysql::server"
     chef.add_recipe "lamp"
     chef.add_recipe "php-fpm"
+    chef.add_recipe "angi"
     chef.json = {
         :mysql => {
             server_root_password: "test",
@@ -68,7 +69,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             package_name: "php-fpm",
             user: "vagrant",
             group: "vagrant",
-        }
+						pools: false
+        },
+		
+				:'angi' => {
+            vhosts: [ "_pk_dev.angi.dev", "_ng_dev.angi.dev" ]
+				}
     }
     end
 end
