@@ -42,7 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # chef solo part
     config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ["chef/chef/cookbooks/"]
+    chef.cookbooks_path = ["chef/cookbooks/"]
     # recipes
     chef.add_recipe "mysql::server"
     chef.add_recipe "lamp"
