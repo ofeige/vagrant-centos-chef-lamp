@@ -47,9 +47,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ["modifyvm", :id, "--vtxvpid", "on"]
     end
 
-
+    # port forwarding
     config.vm.network :forwarded_port, guest: 80, host: 8081
     config.vm.network :forwarded_port, guest: 3306, host: 3306
+
+    # set a dedicated ip
+    config.vm.network "private_network", ip: "192.168.13.37"
 
     config.omnibus.chef_version = :latest
 
