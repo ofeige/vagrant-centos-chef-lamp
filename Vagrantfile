@@ -52,7 +52,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :forwarded_port, guest: 3306, host: 3306
 
     # set a dedicated ip
-    config.vm.network "private_network", ip: "192.168.13.37"
+    # see https://github.com/jedi4ever/veewee/issues/970 and related
+    config.vm.network "private_network", ip: "192.168.13.37", auto_config: false
 
     config.omnibus.chef_version = :latest
 
