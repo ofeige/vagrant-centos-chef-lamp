@@ -91,9 +91,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 						pools: false
         },
 		
-				:'angi' => {
+        :'angi' => {
             vhosts: [ "_pk_dev.angi.dev", "_ng_dev.angi.dev" ]
-				}
+        }
     }
     end
 end
