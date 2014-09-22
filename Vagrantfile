@@ -21,10 +21,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # check if plugin is installed
     if !Vagrant.has_plugin?('nugrant')
-        puts "The nugratn plugin is required. Please install it with \"vagrant plugin install nugrant\""
+        puts "The nugrant plugin is required. Please install it with \"vagrant plugin install nugrant\""
         exit
     end
 
+    # check if plugin is installed
+    if !Vagrant.has_plugin?('vagrant-centos7_fix')
+        puts "The vagrant-centos7_fix plugin is required. Please install it with \"vagrant plugin install vagrant-centos7_fix\""
+        exit
+    end
 
     # set cache scope for cachier
     config.cache.scope = :box
@@ -53,7 +58,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # set a dedicated ip
     # see https://github.com/jedi4ever/veewee/issues/970 and related
-    config.vm.network "private_network", ip: "192.168.13.37", auto_config: false
+    config.vm.network "private_network", ip: "192.168.13.37"
 
     config.omnibus.chef_version = :latest
 
@@ -96,7 +101,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         },
 		
         :'angi' => {
-            vhosts: [ "_pk_dev.angi.dev", "_ng_dev.angi.dev" ]
+            vhosts: [ "dev.angi.dev" ]
         }
     }
     end

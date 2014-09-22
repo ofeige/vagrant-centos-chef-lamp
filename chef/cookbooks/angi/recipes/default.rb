@@ -3,11 +3,14 @@
 node['angi']['vhosts'].each do |vhost|
 
 	root = "#{node['nginx']['default_root']}/#{vhost}"
+
+	root_without_vhost = "#{node['nginx']['default_root']}"
 	
 	template 'wildcard-site' do
 
    	variables( 
   		:root => root,
+  		:root_without_vhost => root_without_vhost,
   		:vhost => vhost
   	)
 
