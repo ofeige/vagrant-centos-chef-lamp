@@ -25,12 +25,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         exit
     end
 
-    # check if plugin is installed
-    if !Vagrant.has_plugin?('vagrant-centos7_fix')
-        puts "The vagrant-centos7_fix plugin is required. Please install it with \"vagrant plugin install vagrant-centos7_fix\""
-        exit
-    end
-
     # set cache scope for cachier
     config.cache.scope = :box
 
@@ -55,10 +49,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # port forwarding
     config.vm.network :forwarded_port, guest: 80, host: 8081
     config.vm.network :forwarded_port, guest: 3306, host: 3306
-
-    # set a dedicated ip
-    # see https://github.com/jedi4ever/veewee/issues/970 and related
-    config.vm.network "private_network", ip: "192.168.13.37"
 
     config.omnibus.chef_version = :latest
 
