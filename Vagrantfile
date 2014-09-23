@@ -4,6 +4,9 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+# force minimum vagrant version
+Vagrant.require_version ">= 1.6.5"
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "chef/centos-7.0"
 
@@ -36,6 +39,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             "cpus" => "2",
         }
     }
+
+    # set a dedicated ip
+    # see https://github.com/jedi4ever/veewee/issues/970 and related
+    config.vm.network "private_network", ip: "192.168.13.37"
+
     # modify virtualbox to set cpu/mem and some useful performance options
     config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", config.user.virtualbox.memory]
