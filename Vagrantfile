@@ -8,7 +8,9 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.require_version ">= 1.6.5"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    config.vm.box = "chef/centos-7.0"
+
+    # box definition
+    config.vm.box = "lamudi/centos-7.0"
 
     # check if plugin is installed
     if !Vagrant.has_plugin?('vagrant-omnibus')
@@ -28,11 +30,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         exit
     end
 
+    # check if plugin is installed
+    if !Vagrant.has_plugin?('vagrant-hostmanager')
+        puts "The vagrant-hostmanager plugin is required. Please install it with \"vagrant plugin install vagrant-hostmanager\""
+        exit
+    end
+
     # set cache scope for cachier
     config.cache.scope = :box
 
     # set default value for nugrant
-
     config.user.defaults = {
         "virtualbox" => {
             "memory" => "2048",
@@ -40,11 +47,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         }
     }
 
-    # set a dedicated ip
-    # see https://github.com/jedi4ever/veewee/issues/970 and related
-    config.vm.network "private_network", ip: "192.168.13.37"
-
     # modify virtualbox to set cpu/mem and some useful performance options
+
     config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", config.user.virtualbox.memory]
         vb.customize ["modifyvm", :id, "--cpus", config.user.virtualbox.cpus]
@@ -54,9 +58,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ["modifyvm", :id, "--vtxvpid", "on"]
     end
 
-    # port forwarding
-    config.vm.network :forwarded_port, guest: 80, host: 8081
-    config.vm.network :forwarded_port, guest: 3306, host: 3306
+    # vagrant-hostmanager config (https://github.com/smdahlen/vagrant-hostmanager)
+
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+    config.vm.define "angi" do |node|
+        # dns name in VM and Host
+        node.vm.hostname = 'angi.dev'
+        # set a dedicated ip
+        node.vm.network :private_network, ip: '192.168.13.37'
+        node.hostmanager.aliases = %w(kpi-lk-dev.angi.dev messages-lk-dev.angi.dev messages-mm-dev.angi.dev messages-mm-dev.angi.dev messages-mx-dev.angi.dev messages-mx-dev.angi.dev)
+    end
 
     config.omnibus.chef_version = :latest
 
@@ -69,6 +83,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # chef solo part
     config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["chef/cookbooks/"]
+
     # recipes
     chef.add_recipe "mysql::server"
     chef.add_recipe "lamp"
@@ -95,12 +110,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             package_name: "php-fpm",
             user: "vagrant",
             group: "vagrant",
-						pools: false
+            pools: false
         },
 		
         :'angi' => {
-            vhosts: [ "dev.angi.dev" ]
+            vhosts: [ "angi.dev" ]
         }
     }
     end
+
+    config.vm.post_up_message = "Happy Coding @Lamudi ! Thanks to all contributors! \n\nAnd as always: A programmer is a device for turning coffee into code. (ok..maybe tea also..)\n\nRead doc/sudoers file if you do not want to enter root password on every vagrant up!"
 end
