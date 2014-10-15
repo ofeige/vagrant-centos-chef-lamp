@@ -89,6 +89,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "lamp"
     chef.add_recipe "php-fpm"
     chef.add_recipe "angi"
+		chef.add_recipe "xdebug"
     chef.json = {
         :mysql => {
             server_root_password: "test",
@@ -115,7 +116,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		
         :'angi' => {
             vhosts: [ "angi.dev" ]
+        },
+        :xdebug => {
+            'web_server' => {
+              service_name: 'nginx'
+            },
+            config_file: '/etc/php.d/xdebug.ini',
+            'directives' => {
+              "remote_autostart" => 1,
+              "remote_connect_back" => 1,
+              "remote_enable" => 1,
+              "remote_log" => '/tmp/remote.log',
+              "profiler_output_dir" => '/var/tmp',
+              "profiler_enable_trigger" => '1',
+              "profiler_enable" => '0',
+              "remote_connect_back" => '1',
+              "remote_port" => '9001',
+              "remote_handler" => 'dbgp',
+              "remote_autostart" => '0',
+              "default_enable" => '1',
+              "cli_color" => '2',
+              "overload_var_dump" => '1',
+              "show_local_vars" => '1'
+
+            }
         }
+
     }
     end
 

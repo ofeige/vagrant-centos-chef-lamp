@@ -43,7 +43,7 @@ end
 	end
 end
 
-%w( php php-mcrypt php-gd php-xml php-ldap php-mysql php-mysqlnd php-mbstring php-pdo php-opcache).each do |prog|
+%w( php php-mcrypt php-gd php-xml php-ldap php-mysql php-mysqlnd php-mbstring php-pdo php-opcache php-devel ).each do |prog|
 #%w( php56 php56-php-mcrypt php56-php-gd php56-php-xml php56-php-ldap php56-php-mysql php56-php-mysqlnd php56-php-mbstring php56-php-pdo php56-php-opcache ).each do |prog|
   package prog do
     options "--enablerepo=remi,remi-php56"

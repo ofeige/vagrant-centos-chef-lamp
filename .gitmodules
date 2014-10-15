@@ -46,3 +46,21 @@
 [submodule "chef/cookbooks/yum-epel"]
 	path = chef/cookbooks/yum-epel
 	url = https://github.com/opscode-cookbooks/yum-epel.git
+[submodule "chef/cookbooks/xdebug"]
+	path = chef/cookbooks/xdebug
+	url = https://github.com/escapestudios-cookbooks/xdebug.git
+[submodule "chef/cookbooks/iis"]
+	path = chef/cookbooks/iis
+	url = https://github.com/opscode-cookbooks/iis.git
+[submodule "chef/cookbooks/windows"]
+	path = chef/cookbooks/windows
+	url = https://github.com/opscode-cookbooks/windows.git
+[submodule "chef/cookbooks/chef_handler"]
+	path = chef/cookbooks/chef_handler
+	url = https://github.com/opscode-cookbooks/chef_handler.git
+[submodule "chef/cookbooks/xml"]
+	path = chef/cookbooks/xml
+	url = https://github.com/opscode-cookbooks/xml.git
+[submodule "chef/cookbooks/chef-sugar"]
+	path = chef/cookbooks/chef-sugar
+	url = https://github.com/sethvargo/chef-sugar.git
