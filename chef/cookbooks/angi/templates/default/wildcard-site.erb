@@ -1,23 +1,21 @@
 server {
-    listen   80;
-    server_name  *.<%= @vhost %>;
-
-    access_log  <%= node['nginx']['log_dir'] %>/<%= @vhost %>.access.log;
-    error_log  <%= node['nginx']['log_dir'] %>/<%= @vhost %>.error.log;
+	listen   80;
+    server_name *.<%= @vhost %>;
+    root <%= @root_without_vhost %>/vhost/web;
 
     location / {
-
-    root   <%= @root_without_vhost %>/web;
-    index  app.php app_dev.php;
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    location ~ \.php$ {
-        fastcgi_pass   <%= node['nginx']['listen'] %>;
-        fastcgi_index  app.php;
-        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include        fastcgi_params;
-        }
+        # try to serve file directly, fallback to app.php
+        try_files $uri /app.php$is_args$args;
     }
-}
 
+    location ~ ^/(app|app_dev|config)\.php(/|$) {
+        fastcgi_pass <%= node['nginx']['listen'] %>;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param HTTPS off;
+    }
+
+    error_log <%= node['nginx']['log_dir'] %>/<%= @vhost %>_error.log;
+    access_log <%= node['nginx']['log_dir'] %>/<%= @vhost %>_access.log;
+}
