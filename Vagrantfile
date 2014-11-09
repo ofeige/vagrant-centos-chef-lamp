@@ -64,12 +64,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.manage_host = true
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
-    config.vm.define "angi" do |node|
+
+    config.vm.define "project" do |node|
         # dns name in VM and Host
-        node.vm.hostname = 'angi.dev'
+        node.vm.hostname = 'dev'
         # set a dedicated ip
         node.vm.network :private_network, ip: '192.168.13.37'
-        node.hostmanager.aliases = %w(kpi-lk-dev.angi.dev messages-lk-dev.angi.dev messages-mm-dev.angi.dev messages-mm-dev.angi.dev messages-mx-dev.angi.dev messages-mx-dev.angi.dev)
+        node.hostmanager.aliases = %w(www.project1.dev api.project1.dev www.project2.dev api.project2.dev)
     end
 
     config.omnibus.chef_version = :latest
@@ -115,7 +116,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         },
 		
         :'angi' => {
-            vhosts: [ "angi.dev" ]
+            vhosts: [ "project1.dev", "project2.dev" ]
         },
         :xdebug => {
             'web_server' => {

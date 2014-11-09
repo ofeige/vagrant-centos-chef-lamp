@@ -1,14 +1,15 @@
 server {
 	listen   80;
     server_name *.<%= @vhost %>;
-    root <%= @root_without_vhost %>/vhost/web;
+
 
     location / {
         # try to serve file directly, fallback to app.php
         try_files $uri /app.php$is_args$args;
     }
 
-    location ~ ^/(app|app_dev|config)\.php(/|$) {
+    location ~ ^/(app|app_dev|config|index)\.php(/|$) {
+        root <%= @root_without_vhost %>/<%= @vhost %>/web;
         fastcgi_pass <%= node['nginx']['listen'] %>;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
