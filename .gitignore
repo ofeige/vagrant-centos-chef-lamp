@@ -1,2 +1,4 @@
 .idea
 .vagrant
+project1.dev/*
+project2.dev/*
