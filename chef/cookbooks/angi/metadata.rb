@@ -1,3 +1,4 @@
+name             "angi"
 maintainer       "Oliver Feige"
 maintainer_email "ofeige@gmx.de"
 license          "All rights reserved"
