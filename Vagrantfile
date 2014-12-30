@@ -71,6 +71,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # set a dedicated ip
         node.vm.network :private_network, ip: '192.168.13.37'
         node.hostmanager.aliases = %w(www.project1.dev api.project1.dev www.project2.dev api.project2.dev)
+	config.vm.network :forwarded_port, guest: 3306, host: 3306
     end
 
     config.omnibus.chef_version = :latest
