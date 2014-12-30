@@ -1,7 +1,7 @@
 server {
     listen   80;
     server_name *.<%= @vhost %>;
-    root <%= @root_without_vhost %>/<%= @vhost %>/web;
+    root <%= @root_without_vhost %>/<%= @vhost %>/public;
 
     location / {
         # try to serve file directly, fallback to app.php
