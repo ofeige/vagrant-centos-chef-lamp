@@ -1,7 +1,7 @@
 server {
     listen   80;
     server_name *.<%= @vhost %>;
-    root <%= @root_without_vhost %>/<%= @vhost %>/public;
+    root <%= @root_without_vhost %>/<%= @vhost %>/web;
 
     location / {
         # try to serve file directly, fallback to app.php
@@ -9,7 +9,7 @@ server {
     }
 
     location ~ ^/(app|app_dev|config|index)\.php(/|$) {
-        fastcgi_pass <%= node['nginx']['listen'] %>;
+        fastcgi_pass unix:/var/run/php-fpm-www.sock;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
