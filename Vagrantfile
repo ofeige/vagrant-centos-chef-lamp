@@ -70,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         node.vm.hostname = 'dev'
         # set a dedicated ip
         node.vm.network :private_network, ip: '192.168.13.37'
-        node.hostmanager.aliases = %w(www.project1.dev api.project1.dev www.project2.dev api.project2.dev)
+        node.hostmanager.aliases = %w(www.project1.dev www.project2.dev)
 	config.vm.network :forwarded_port, guest: 3306, host: 3306
     end
 
@@ -91,7 +91,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "lamp"
     chef.add_recipe "php-fpm"
     chef.add_recipe "angi"
-		chef.add_recipe "xdebug"
+    chef.add_recipe "xdebug"
+
     chef.json = {
         :mysql => {
             server_root_password: "test",
@@ -104,7 +105,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         :nginx => {
             sendfile: "off",
             default_root: "/vagrant",
-            listen: "127.0.0.1:9000",
+            listen: "unix:/var/run/php-fpm-www.sock",
             user: "vagrant",
             group: "vagrant",
         },

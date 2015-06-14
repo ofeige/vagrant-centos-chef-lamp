@@ -179,6 +179,22 @@ template 'dot.my.cnf' do
 end
 
 php_fpm_pool "www" do
-	listen node['nginx']['listen']
+   listen node['nginx']['listen']
+   process_manager "dynamic"
+   max_requests 5000
+   php_options 'php_admin_flag[log_errors]' => 'on', 'php_admin_value[memory_limit]' => '32M'
 end
 
+directory "/var/lib/nginx" do
+   owner 'vagrant'
+   group 'root'
+   mode '0777'
+   action :create
+end
+
+directory "/var/lib/nginx/tmp" do
+   owner 'vagrant'
+   group 'root'
+   mode '0777'
+   action :create
+end
