@@ -147,6 +147,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     }
     end
-
-    config.vm.post_up_message = "Happy Coding @Lamudi ! Thanks to all contributors! \n\nAnd as always: A programmer is a device for turning coffee into code. (ok..maybe tea also..)\n\nRead doc/sudoers file if you do not want to enter root password on every vagrant up!"
 end
