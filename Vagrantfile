@@ -91,7 +91,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "lamp"
     chef.add_recipe "php-fpm"
     chef.add_recipe "angi"
-    chef.add_recipe "xdebug"
+    #chef.add_recipe "xdebug"
 
     chef.json = {
         :mysql => {
