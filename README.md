@@ -60,6 +60,8 @@ Change Log
 First release for this project
 
 22. Jun. 2014
-Fix fileupload issues (ngnix & php-fpm related)
-Clean the project structure and remove unused stuff
-Use of only one chef cookbook "lamp"
+- Fix fileupload issues (ngnix & php-fpm related)
+- Clean the project structure and remove unused stuff
+- Use of only one chef cookbook "lamp" instead of "angi" + "lamp"
+- remove all submodule and used now copy of official cookbooks
+
