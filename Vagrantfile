@@ -51,7 +51,7 @@ Vagrant.configure(2) do |config|
 
     # chef solo part
     config.vm.provision :chef_zero do |chef|
-    chef.cookbooks_path = ["chef/cookbook/"]
+    chef.cookbooks_path = ["chef/cookbooks/"]
 
         chef.add_recipe "lamp"
         chef.add_recipe "php-fpm"
