@@ -23,7 +23,6 @@ end
   end
 end
 
-
 mysql_service 'foo' do
   port '3306'
   version '5.7'
@@ -31,6 +30,13 @@ mysql_service 'foo' do
   action [:create, :start]
 end
 
+# enable query cache
+mysql_config 'foo' do
+  instance 'foo'
+  source 'my-mysql-settings.erb'
+  notifies :restart, 'mysql_service[foo]'
+  action :create
+end
 
 node['lamp']['vhosts'].each do |vhost|
 
