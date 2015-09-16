@@ -54,6 +54,15 @@ and
 
 here you can add more virtual hosts or change the name. Please always change both lines. The first one, will create entries in you /etc/hosts, without these entries you can´t access the virtual hosts with your local browser.
 
+How it works
+============
+
+if you call http://www.project1.local it will search for a app.php inside the project1.local/web/ folder. So to start with symfony2 application it is really easy. If you need an other rewrite you can change the ngnix template file under chef/cookbooks/lamp/templates/default/wildcard-site.erb for your need!
+
+if you want to change mysql settings, update this file: chef/cookbooks/lamp/templates/default/my-mysql-settings.erb
+
+Please dont forget to run ```vagrant provision``` after you change the template files.
+
 Change Log
 ==========
 13. Nov. 2014
