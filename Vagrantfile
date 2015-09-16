@@ -59,7 +59,7 @@ Vagrant.configure(2) do |config|
 
         chef.json = {
             :lamp  => {
-                vhosts: [ "project1.dev", "project2.dev" ]
+                vhosts: [ "project1.local", "project2.local" ]
             },
             :nginx => {
                 default_site_enabled: false,
