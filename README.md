@@ -41,14 +41,14 @@ Config Option
 You can setup dedicated virtual hosts, when you change following line
 
 ```
-node.hostmanager.aliases = %w(www.project1.dev www.project2.dev)
+node.hostmanager.aliases = %w(www.project1.local www.project2.local)
 ```
 
 and
 
 ```
 :lamp  => {
-  vhosts: [ "project1.dev", "project2.dev" ]
+  vhosts: [ "project1.local", "project2.local" ]
 }
 ```
 
@@ -65,3 +65,7 @@ First release for this project
 - Use of only one chef cookbook "lamp" instead of "angi" + "lamp"
 - remove all submodule and used now copy of official cookbooks
 
+16. September 2015
+- fix .dev dns problems
+- provide correct example inside README
+- rewrote the cookbooks, it is much cleaner now and no need for submodules
