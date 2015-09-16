@@ -34,10 +34,10 @@ Vagrant.configure(2) do |config|
 
     config.vm.define "project" do |node|
         # dns name in VM and Host
-        node.vm.hostname = 'www.project1.dev'
+        node.vm.hostname = 'of-vm-box'
         # set a dedicated ip
         node.vm.network :private_network, ip: '192.168.13.37'
-        node.hostmanager.aliases = %w(www.project1.dev www.project2.dev)
+        node.hostmanager.aliases = %w(www.project1.local www.project2.local)
 	    config.vm.network :forwarded_port, guest: 3306, host: 3306
     end
 
