@@ -26,6 +26,11 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--cpus", 2]
     end
 
+    config.vm.provider "parallels" do |v|
+        v.memory = 2048
+        v.cpus = 2
+    end    
+
   # vagrant-hostmanager config (https://github.com/smdahlen/vagrant-hostmanager)
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
