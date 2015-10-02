@@ -57,11 +57,11 @@ here you can add more virtual hosts or change the name. Please always change bot
 How it works
 ============
 
-if you call http://www.project1.local it will search for a app.php inside the project1.local/web/ folder. So to start with symfony2 application it is really easy. If you need an other rewrite you can change the ngnix template file under chef/cookbooks/lamp/templates/default/wildcard-site.erb for your need!
+if you call http://www.project1.local it will search for a app.php inside the project1.local/web/ folder. It is really easy to start with a symfony2 application. If you need an other rewrite you can change the ngnix template file under chef/cookbooks/lamp/templates/default/wildcard-site.erb for your need!
 
 if you want to change mysql settings, update this file: chef/cookbooks/lamp/templates/default/my-mysql-settings.erb
 
-Please dont forget to run ```vagrant provision``` after you change the template files.
+Please don´t forget to run ```vagrant provision``` after you change the template files.
 
 Change Log
 ==========
@@ -78,3 +78,6 @@ First release for this project
 - fix .dev dns problems
 - provide correct example inside README
 - rewrote the cookbooks, it is much cleaner now and no need for submodules
+
+03. October 2015
+- add default timezone setting for php
