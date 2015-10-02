@@ -83,5 +83,8 @@ php_fpm_pool "www" do
    listen '/var/run/php-fpm-www.sock'
    process_manager "dynamic"
    max_requests 5000
-   php_options 'php_admin_flag[log_errors]' => 'on', 'php_admin_value[memory_limit]' => '32M'
+end
+
+file "/etc/php.d/99-timezone.ini" do
+    content "[Date]\n date.timezone = 'Europe/Berlin'\n"
 end
