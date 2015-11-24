@@ -26,7 +26,7 @@ end
 mysql_service 'foo' do
   port '3306'
   version '5.7'
-  initial_root_password 'changeme'
+  initial_root_password "#{node['mysql']['initial_root_password']}"
   action [:create, :start]
 end
 
