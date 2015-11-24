@@ -63,6 +63,8 @@ if you want to change mysql settings, update this file: chef/cookbooks/lamp/temp
 
 Please don´t forget to run ```vagrant provision``` after you change the template files.
 
+If you want to connect to mysql from your host system you have to use the mysql password! If you want to connect from your vagrant environment you have to add "-h 127.0.0.1"
+
 Change Log
 ==========
 13. Nov. 2014
@@ -81,3 +83,6 @@ First release for this project
 
 03. October 2015
 - add default timezone setting for php
+
+24. November 2015
+- add possibility to change the mysql pw
