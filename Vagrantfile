@@ -66,6 +66,11 @@ Vagrant.configure(2) do |config|
             :lamp  => {
                 vhosts: [ "project1.local", "project2.local" ]
             },
+            :mysql => {
+                port: 3306,
+                version: '5.7',
+                initial_root_password: 'changeme',
+            },
             :nginx => {
                 default_site_enabled: false,
                 sendfile: "off",
