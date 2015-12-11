@@ -86,3 +86,6 @@ First release for this project
 
 24. November 2015
 - add possibility to change the mysql pw
+
+11. Dezember 2015
+- add mysql settings to Vagrantfile
