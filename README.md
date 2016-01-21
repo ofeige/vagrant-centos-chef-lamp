@@ -92,3 +92,5 @@ First release for this project
 
 21 January 2016
 - fix plugin name vagrant-hostmanager instead of vagrant-hostmaster
+- fix vagrant 1.8.1 problem with chef_zero config option. solution was using chef_solo
+- .local is a official domain now. removed the toplevel domain
