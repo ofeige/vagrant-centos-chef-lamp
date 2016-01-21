@@ -55,7 +55,7 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
 
     # chef solo part
-    config.vm.provision :chef_zero do |chef|
+    config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["chef/cookbooks/"]
 
         chef.add_recipe "lamp"
