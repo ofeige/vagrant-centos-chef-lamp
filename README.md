@@ -12,7 +12,7 @@ Install
 2. install vagrant >= 1.6.5 (http://www.vagrantup.com/downloads.html) I suggest to install the latest version. I tested this  project only with version 1.7.3
 3. install the necessary plugins for vagrant, if not yet happened
  ```
- vagrant plugin install vagrant-hostmaster
+ vagrant plugin install vagrant-hostmanager
  vagrant plugin install vagrant-cachier
  ```
 
@@ -89,3 +89,6 @@ First release for this project
 
 11 Dezember 2015
  - add mysql settings to Vagrantfile
+
+21 January 2016
+- fix plugin name vagrant-hostmanager instead of vagrant-hostmaster
