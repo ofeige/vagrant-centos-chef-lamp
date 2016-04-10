@@ -18,6 +18,11 @@ Install
 
  Hostmaster is needed to add/remove entries in your local /etc/hosts file. To support development domains
  Cachier is needed to prevent downloading rpm´s again. This is usefull during setting up a vm, when you have online internet  via cellphone like inside a train :-)
+ 
+ If you're using parallels you also have to install the vagrant plugin
+ ```
+ vagrant plugin install vagrant-parallels
+ ```
 
 
 4. do the git stuff
