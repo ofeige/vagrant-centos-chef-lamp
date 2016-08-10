@@ -1,6 +1,6 @@
 server {
     listen       <%= node['nginx']['port'] -%>;
-    server_name  *.<%= @vhost %>;
+    server_name  <%= @vhost %>;
     root         <%= @root_without_vhost %>/<%= @vhost %>/web;
 
     location / {
