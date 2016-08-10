@@ -8,17 +8,17 @@ yum_repository 'remi' do
   action :create
 end
 
-# add the remi-php56 repo
-yum_repository 'remi-php56' do
-  description 'Les RPM de remi pour Enterprise Linux - php56'
-  mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/php56/mirror'
+# add the remi-php70 repo
+yum_repository 'remi-php70' do
+  description 'Les RPM de remi pour Enterprise Linux - php70'
+  mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/php70/mirror'
   gpgkey 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
   action :create
 end
 
 %w(php php-mcrypt php-gd php-mysqlnd php-mbstring php-pdo php-opcache composer).each do |prog|
     package prog do
-    options "--enablerepo=remi,remi-php56"
+    options "--enablerepo=remi,remi-php70"
     action :install
   end
 end
