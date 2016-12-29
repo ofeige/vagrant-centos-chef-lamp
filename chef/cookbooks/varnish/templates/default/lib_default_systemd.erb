@@ -1,0 +1,27 @@
+<%-
+  if @config.storage == 'file' && @config.file_storage_path
+    storage = [@config.storage, (@config.file_storage_path % @config.name), @config.file_storage_size].compact.join(",")
+  else
+    storage = [@config.storage, @config.malloc_size].compact.join(",")
+  end
+
+  parameters = ''
+  unless (@config.parameters).nil?
+      @config.parameters.each do |param, value|
+        parameters << "-p #{param.to_s}=#{value} "
+    end
+  end
+%>
+[Unit]
+Description=Varnish HTTP accelerator
+
+[Service]
+Type=forking
+LimitNOFILE=<%= @config.max_open_files %>
+LimitMEMLOCK=<%= @config.max_locked_memory %>
+ExecStartPre=/usr/sbin/varnishd -C -f <%= @config.path_to_vcl %>
+ExecStart=/usr/sbin/varnishd -a <%= @config.listen_address %>:<%= @config.listen_port %> -T <%= @config.admin_listen_address %>:<%= @config.admin_listen_port %> -f <%= @config.path_to_vcl %> -S <%= @config.path_to_secret %> -s <%= storage %> <%= parameters %>
+ExecReload=<%= @exec_reload_command %>
+
+[Install]
+WantedBy=multi-user.target

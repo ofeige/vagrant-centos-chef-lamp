@@ -1,27 +1,28 @@
-include_recipe "nginx"
+include_recipe "chef_nginx"
 
 # add the remi repo
 yum_repository 'remi' do
-  description 'Les RPM de remi pour Enterprise Linux'
+#  description 'Les RPM de remi pour Enterprise Linux'
   mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/remi/mirror'
   gpgkey 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
   action :create
 end
 
-# add the remi-php70 repo
+# add the remi-php71 repo
 yum_repository 'remi-php70' do
-  description 'Les RPM de remi pour Enterprise Linux - php70'
-  mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/php70/mirror'
+  description 'Les RPM de remi pour Enterprise Linux - php71'
+  mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/php71/mirror'
   gpgkey 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
   action :create
 end
 
-%w(php php-mcrypt php-gd php-mysqlnd php-mbstring php-pdo php-opcache composer).each do |prog|
-    package prog do
-    options "--enablerepo=remi,remi-php70"
+%w(php php-mcrypt php-gd php-mysqlnd php-mbstring php-pdo php-opcache composer varnish).each do |prog|
+  package prog do
+  #  options "--enablerepo=remi,remi-php71"
     action :install
   end
 end
+
 
 mysql_service 'foo' do
   port '3306'
@@ -39,13 +40,12 @@ mysql_config 'foo' do
 end
 
 node['lamp']['vhosts'].each do |vhost|
-
 	root = "#{node['nginx']['default_root']}/#{vhost}"
 	root_without_vhost = "#{node['nginx']['default_root']}"
 	template 'wildcard-site' do
 
    	variables(
-  		:root => root,
+ 		:root => root,
   		:root_without_vhost => root_without_vhost,
   		:vhost => vhost
   	)
@@ -81,10 +81,16 @@ end
 
 php_fpm_pool "www" do
    listen '/var/run/php-fpm-www.sock'
-   process_manager "dynamic"
-   max_requests 5000
+   user 'vagrant'
+   group 'vagrant'
+   listen_user 'vagrant'
+   listen_group 'vagrant'
+   action :install
 end
 
 file "/etc/php.d/99-timezone.ini" do
     content "[Date]\n date.timezone = 'Europe/Berlin'\n"
 end
+
+
+

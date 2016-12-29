@@ -2,6 +2,8 @@
 
 This cookbook provides an LWRP for installing https://packagecloud.io repositories.
 
+NOTE: Please see the Changelog below for important changes if upgrading from 0.0.19 to 0.1.0.
+
 ## Usage
 
 Be sure to depend on `packagecloud` in `metadata.rb` so that the packagecloud
@@ -34,7 +36,27 @@ packagecloud_repo "computology/packagecloud-cookbook-test-private" do
 end
 ```
 
+For forcing the os and dist for repository install:
+
+```
+packagecloud_repo 'computology/packagecloud-cookbook-test-public' do
+  type 'rpm'
+  force_os 'rhel'
+  force_dist '6.5'
+end
+```
+
 Valid options for `type` include `deb`, `rpm`, and `gem`.
+
+This cookbook performs checks to determine if a package exists before attempting
+to install it. To enable proxy support *for these checks* (not to be confused
+with proxy support for your package manager of choice), add the following
+attributes to your cookbook:
+
+```
+default['packagecloud']['proxy_host'] = 'myproxy.organization.com'
+default['packagecloud']['proxy_port'] = '80'
+```
 
 ## Interactions with other cookbooks
 
@@ -60,6 +82,10 @@ the yum chef cookbook is set to the system default, unless you use the
 `yum_globalconfig` resource to set a custom cachedir. If you do set a custom
 `cachedir`, you should make sure to setup packagecloud repos after that
 resource is set so that the GPG keys end up in the right place.
+
+## Changelog
+
+See CHANGELOG.md for more recent changes.
 
 ## Credits
 Computology, LLC.

@@ -2,7 +2,7 @@
 # Cookbook Name:: build-essential
 # Library:: xcode_command_line_tools
 #
-# Copyright 2014, Chef Software, Inc.
+# Copyright 2014-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,10 +29,12 @@ class Chef
     def initialize(name, run_context = nil)
       super
 
-      @provider = case node['platform_version'].to_f
-                  when 10.7, 10.8
+      # => Break down SemVer
+      major, minor, _patch = node['platform_version'].split('.').map { |v| String(v) }
+      @provider = case [major, minor].join('.')
+                  when '10.7', '10.8'
                     Provider::XcodeCommandLineToolsFromDmg
-                  when 10.9, 10.10
+                  when '10.9', '10.10', '10.11'
                     Provider::XcodeCommandLineToolsFromSoftwareUpdate
                   else
                     Chef::Log.warn <<-EOH
@@ -143,7 +145,7 @@ class Chef
     # @return [void]
     #
     def attach
-      execute %|hdiutil attach "#{dmg_cache_path}" -mountpoint "#{mount_path}"|
+      execute %(hdiutil attach "#{dmg_cache_path}" -mountpoint "#{mount_path}")
     end
 
     #
@@ -161,7 +163,7 @@ class Chef
     # @return [void]
     #
     def detach
-      execute %|hdiutil detach "#{mount_path}"|
+      execute %(hdiutil detach "#{mount_path}")
     end
   end
 end
@@ -176,7 +178,6 @@ class Chef
           # This script was graciously borrowed and modified from Tim Sutton's
           # osx-vm-templates at https://github.com/timsutton/osx-vm-templates/blob/b001475df54a9808d3d56d06e71b8fa3001fff42/scripts/xcode-cli-tools.sh
           execute 'install XCode Command Line tools' do
-            # rubocop:disable Metrics/LineLength
             command <<-EOH.gsub(/^ {14}/, '')
               # create the placeholder file that's checked by CLI updates' .dist code
               # in Apple's SUS catalog

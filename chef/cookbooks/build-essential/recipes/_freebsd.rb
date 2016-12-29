@@ -2,7 +2,7 @@
 # Cookbook Name:: build-essential
 # Recipe:: freebsd
 #
-# Copyright 2014, Chef Software, Inc.
+# Copyright 2014-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,4 +21,5 @@ potentially_at_compile_time do
   package 'devel/gmake'
   package 'devel/autoconf'
   package 'devel/m4'
+  package 'devel/gettext'
 end
