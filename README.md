@@ -1,19 +1,20 @@
 vagrant-centos-chef-lamp
 ========================
 
-A lamp stack with chef, centos 7.2, vagrant, nginx, php-7.1, php-fpm, mysql 5.7 and composer. But instead of using apache, I switched to nginx
+A lamp stack with chef, centos 7.3, vagrant, nginx, php-7.1, php-fpm, mysql 5.7 and composer. But instead of using apache, I switched to nginx
 
 Install
 =======
 
 1. choose your virtualization product
- - install virtual-box >= 4.3.16
+ - install virtualbox >= 5.1.12
  - install parallels 10
-2. install vagrant >= 1.6.5 (http://www.vagrantup.com/downloads.html) I suggest to install the latest version. I tested this  project only with version 1.7.3
+2. install vagrant >= 1.8.7
 3. install the necessary plugins for vagrant, if not yet happened
  ```
  vagrant plugin install vagrant-hostmanager
  vagrant plugin install vagrant-cachier
+ vagrant plugin install vagrant-winnfsd # only for Windows
  ```
 
  Hostmaster is needed to add/remove entries in your local /etc/hosts file. To support development domains
@@ -99,3 +100,7 @@ First release for this project
 - fix plugin name vagrant-hostmanager instead of vagrant-hostmaster
 - fix vagrant 1.8.1 problem with chef_zero config option. solution was using chef_solo
 - .local is a official domain now. removed the toplevel domain
+
+17 January 2017
+- Improved plugin handling
+- Updated vagrantbox and virtualbox versions
