@@ -1,7 +1,7 @@
 vagrant-centos-chef-lamp
 ========================
 
-A lamp stack with chef, centos 7.2, vagrant, nginx, php-7.1, php-fpm, mysql 5.7 and composer. But instead of using apache, I switched to nginx
+A lamp stack with chef, centos 7.3, vagrant, nginx, php-7.1, php-fpm, mysql 5.7 and composer. But instead of using apache, I switched to nginx
 
 Install
 =======
