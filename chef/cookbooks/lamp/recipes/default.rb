@@ -16,9 +16,8 @@ yum_repository 'remi-php70' do
   action :create
 end
 
-%w(php php-mcrypt php-gd php-mysqlnd php-mbstring php-pdo php-opcache composer varnish).each do |prog|
+%w(php php-mcrypt php-gd php-mysqlnd php-mbstring php-pdo php-opcache composer varnish git).each do |prog|
   package prog do
-  #  options "--enablerepo=remi,remi-php71"
     action :install
   end
 end
