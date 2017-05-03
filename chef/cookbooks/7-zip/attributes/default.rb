@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-if kernel['machine'] =~ /x86_64/
+if node['kernel']['machine'] =~ /x86_64/
   default['7-zip']['url']          = "http://downloads.sourceforge.net/sevenzip/7z922-x64.msi"
   default['7-zip']['checksum']     = "f09bf515289eea45185a4cc673e3bbc18ce608c55b4cf96e77833435c9cdf3dc"
   default['7-zip']['package_name'] = "7-Zip 9.22 (x64 edition)"
