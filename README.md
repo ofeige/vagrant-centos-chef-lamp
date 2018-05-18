@@ -7,7 +7,7 @@ Install
 =======
 
 1. choose your virtualization product
- - install virtualbox >= 5.1.12
+ - install virtualbox >= 5.1.12 (do not install it for Mac)
  - install parallels 10
 2. install vagrant 1.8.7 (there is a bug with 1.9 and 1.9.1 regarding RedHat based systems and networking)
 3. install the necessary plugins for vagrant, if not yet happened
@@ -36,7 +36,7 @@ Install
  ```
  vagrant up
  ```
- or with parallels
+ or with parallels (use this for Mac)
  ```
  vagrant up --provider=parallels
  ```
