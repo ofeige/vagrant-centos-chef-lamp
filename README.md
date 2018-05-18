@@ -36,7 +36,7 @@ Install
  ```
  vagrant up
  ```
- or with parallels (use this for Mac)
+ or with parallels (use it as Mac user)
  ```
  vagrant up --provider=parallels
  ```
